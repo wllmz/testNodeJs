@@ -1,33 +1,11 @@
 const express = require('express');
+
 const app = express();
-const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send('Bonjour, Monde !');
+res.send('<h1>Welcome!</h1>');
 });
 
-const server = app.listen(port, () => {
-  console.log(`Serveur démarré sur le port ${port}`);
-
-  sendRequests(10).then(() => {
-    server.close();
-  });
+app.listen(5000, () => {
+console.log('listening on port 5000)');
 });
-
-const axios = require('axios');
-
-const sendRequests = async (numRequests) => {
-  try {
-    for (let i = 0; i < numRequests; i++) {
-      await axios.get(`http://localhost:${port}/`)
-        .then(response => {
-          console.log(`Requête ${i + 1}:`, response.data);
-        })
-        .catch(error => {
-          console.error(`Erreur sur la requête ${i + 1}:`, error.message);
-        });
-    }
-  } catch (error) {
-    console.error('Erreur globale:', error.message);
-  }
-};
